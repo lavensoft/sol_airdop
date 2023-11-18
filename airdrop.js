@@ -3,8 +3,6 @@ import pkg from 'bs58';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fcsv from 'fast-csv';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const parseArgs = (args) => {
    const parsedArgs = {};
@@ -23,8 +21,6 @@ const parseArgs = (args) => {
 const rawArgs = process.argv;
 const { secrectKey, programId, amount, note, mul, csv, network } = parseArgs(rawArgs);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const { decode } = pkg;
 const connection = new Connection(clusterApiUrl(network || "mainnet-beta")); //!TODO GET FROM ARGS || DEFAULT: mainnet
 
@@ -81,7 +77,7 @@ const main = async () => {
    const transactions = [];
 
    await new Promise((res, rej) => 
-      fs.createReadStream(path.resolve(__dirname, csv))
+      fs.createReadStream(csv)
          .pipe(fcsv.parse({ headers: true }))
          .on('error', error => rej(error))
          .on('data', row => transactions.push(row))

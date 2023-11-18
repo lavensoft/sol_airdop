@@ -8,5 +8,10 @@
     "@solana/web3.js": "^1.87.6",
     "bs58": "^5.0.0",
     "fast-csv": "^4.3.6"
-  }
+  },
+  "pkg": {
+   "scripts": "./airdrop.js",
+   "targets": [ "node20-macos-arm64", "node20-win-arm64", "node20-linux-arm64" ],
+   "outputPath": "dist"
+ }
 }
