@@ -18,7 +18,7 @@ File csv sẽ có format như sau:
 **-programId:** (Tuỳ chọn) ID của chương trình<br/>
 
 ```bash
-node airdrop.js -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
+airdrop -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
 ```
 
 # GENERATE:
@@ -29,5 +29,5 @@ node airdrop.js -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -
 **-note:** (Tuỳ chọn) Nội dung gửi<br/>
 
 ```bash
-node generate.js -length=10 -output=out.csv -amount=0.05 -note="HELLO WORLD"
+generate -length=10 -output=out.csv -amount=0.05 -note="HELLO WORLD"
 ```
