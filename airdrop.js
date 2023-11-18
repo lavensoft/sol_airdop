@@ -43,8 +43,6 @@ const airdrop = async (toPubKey, lamports, note="", mul=false) => {
       console.log(`[INFO]: Starting airdrop to ${toPubKey}...`);
       const accountInfo = await connection.getAccountInfo(fromKeypair.publicKey);
 
-      console.log(accountInfo);
-
       if(!accountInfo) {
          throw new Error(`${!mul ? "└──" : ""}[ERROR${mul ? ` - ${toPubKey}` : ""}]: Account not found!`);
       }
