@@ -9,13 +9,13 @@ File csv sẽ có format như sau:
 
 # AIRDROP:
 ## Args:
-**-secrectKey:** Private key của ví gửi
-**-csv:** Đường dẫn đến file csv
-**-amount:** (Tuỳ chọn) số lượng SOL gửi đến các ví, khi quy định amount thì chương trình sẽ ưu tiên lấy số lượng ở đây thay vì cột Amount trong file CSV.
-**-note:** (Tuỳ chọn) Nội dung gửi
-**-mul:** (Tuỳ chọn) gửi hàng loạt, mặc định sẽ gửi đến từng ví theo hàng chờ. giá trị là true hoặc false
-**-network:** (Tuỳ chọn) mạng của ví mặc định là mainnet-beta
-**-programId:** (Tuỳ chọn) ID của chương trình
+**-secrectKey:** Private key của ví gửi<br/>
+**-csv:** Đường dẫn đến file csv<br/>
+**-amount:** (Tuỳ chọn) số lượng SOL gửi đến các ví, khi quy định amount thì chương trình sẽ ưu tiên lấy số lượng ở đây thay vì cột Amount trong file CSV<br/>
+**-note:** (Tuỳ chọn) Nội dung gửi<br/>
+**-mul:** (Tuỳ chọn) gửi hàng loạt, mặc định sẽ gửi đến từng ví theo hàng chờ. giá trị là true hoặc false<br/>
+**-network:** (Tuỳ chọn) mạng của ví mặc định là mainnet-beta<br/>
+**-programId:** (Tuỳ chọn) ID của chương trình<br/>
 
 ```bash
 node airdrop.js -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
@@ -23,10 +23,10 @@ node airdrop.js -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -
 
 # GENERATE:
 ## Args:
-**-length:** Số lượng Public Key
-**-output:** Đường dẫn đến file csv
-**-amount:** Số lượng SOL gửi đến các ví.
-**-note:** (Tuỳ chọn) Nội dung gửi
+**-length:** Số lượng Public Key<br/>
+**-output:** Đường dẫn đến file csv<br/>
+**-amount:** Số lượng SOL gửi đến các ví<br/>
+**-note:** (Tuỳ chọn) Nội dung gửi<br/>
 
 ```bash
 node generate.js -length=10 -output=out.csv -amount=0.05 -note="HELLO WORLD"
