@@ -1,9 +1,9 @@
-import { Keypair, PublicKey } from "@solana/web3.js";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import * as path from 'path';
-import * as fcsv from 'fast-csv';
-import * as fs from 'fs';
+const { Keypair, PublicKey } = require("@solana/web3.js");
+const { fileURLToPath } = require('url');
+const { dirname } = require('path');
+const path = require('path');
+const fcsv = require('fast-csv');
+const fs = require('fs');
 
 const parseArgs = (args) => {
    const parsedArgs = {};
@@ -19,13 +19,21 @@ const parseArgs = (args) => {
    return parsedArgs;
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const rawArgs = process.argv;
-const { length, output, amount, note } = parseArgs(rawArgs);
+const { length, out, amount, note } = parseArgs(rawArgs);
 
-const outputPath = output || path.resolve(__dirname, "address.csv");
+//Validate
+if(!length) {
+   console.log("[ERROR]: Please spetific -length");
+   process.exit(0);
+}
+
+if(!out) {
+   console.log("[ERROR]: Please spetific -out");
+   process.exit(0);
+}
+
+const outputPath = out || path.resolve(__dirname, "address.csv");
 
 const main = async () => {
    const data = [];

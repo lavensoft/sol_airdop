@@ -1,8 +1,8 @@
-import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction, TransactionInstruction, clusterApiUrl, sendAndConfirmTransaction } from "@solana/web3.js";
-import pkg from 'bs58';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as fcsv from 'fast-csv';
+const { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction, TransactionInstruction, clusterApiUrl, sendAndConfirmTransaction } = require("@solana/web3.js");
+const pkg = require('bs58');
+const fs = require('fs');
+const path = require('path');
+const fcsv = require('fast-csv');
 
 const parseArgs = (args) => {
    const parsedArgs = {};
@@ -20,6 +20,17 @@ const parseArgs = (args) => {
 
 const rawArgs = process.argv;
 const { secrectKey, programId, amount, note, mul, csv, network } = parseArgs(rawArgs);
+
+//Validate
+if(!secrectKey) {
+   console.log("[ERROR]: Please spetific -secrectKey");
+   process.exit(0);
+}
+
+if(!csv) {
+   console.log("[ERROR]: Please spetific -csv");
+   process.exit(0);
+}
 
 const { decode } = pkg;
 const connection = new Connection(clusterApiUrl(network || "mainnet-beta")); //!TODO GET FROM ARGS || DEFAULT: mainnet
