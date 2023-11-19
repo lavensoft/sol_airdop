@@ -44,6 +44,20 @@ const sucRes = [];
 
 const isNumber = (n) => { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
+const writeCsv = async (data=[], output) => {
+   return new Promise((res, rej) => {
+      const ws = fs.createWriteStream(output);
+      fcsv.write(data, { headers: true })
+         .pipe(ws)
+         .on('finish', () => {
+            res(1);
+         })
+         .on('error', (err) => {
+            rej(err);
+         });
+   });
+}
+
 const airdrop = async (toPubKey, lamports, note="", mul=false) => {
    try {
       let amount = 0;
@@ -142,7 +156,7 @@ const airdrop = async (toPubKey, lamports, note="", mul=false) => {
          amount: lamports || 0,
          note: note || ""
       });
-      console.log(e.message);
+      console.log(e.message || `${!mul ? "└──" : ""}[ERROR${mul ? ` - ${toPubKey}` : ""}]: Failed to airdrop!`);
    }
 }
 
@@ -180,28 +194,26 @@ const main = async () => {
       }
    }
 
-   //Save result
-   console.log(`[INFO]: Saving result ${resUid}-success.csv`);
-   const ws = fs.createWriteStream(`${resUid}-success.csv`);
-   fcsv.write(sucRes, { headers: true })
-      .pipe(ws)
-      .on('finish', () => {
-         console.log(`└──[SUCCESS]: Result saved successfully!`);
-      })
-      .on('error', (err) => {
-         console.log(`└──[ERROR]: Can not save result!`);
-      });
+   // Save resul
+   if(sucRes.length) {
+      try {
+         console.log(`[INFO]: Saving result ${resUid}-success.csv`);
+         await writeCsv(sucRes, `${resUid}-success.csv`);
+         console.log(`└──[SUCCESS]: Result saved ${resUid}-success.csv!`);
+      }catch(e) {
+         console.log(`└──[ERROR]: Can not save ${resUid}-success.csv!`);
+      }
+   }
 
-   console.log(`[INFO]: Saving result ${resUid}-fail.csv`);
-   const ws2 = fs.createWriteStream(`${resUid}-fail.csv`);
-   fcsv.write(failRes, { headers: true })
-      .pipe(ws2)
-      .on('finish', () => {
-         console.log(`└──[SUCCESS]: Result saved successfully!`);
-      })
-      .on('error', (err) => {
-         console.log(`└──[ERROR]: Can not save result!`);
-      });
+   if(failRes.length) {
+      try {
+         console.log(`[INFO]: Saving result ${resUid}-fail.csv`);
+         await writeCsv(failRes, `${resUid}-fail.csv`);
+         console.log(`└──[SUCCESS]: Result saved ${resUid}-fail.csv!`);
+      }catch(e) {
+         console.log(`└──[ERROR]: Can not save ${resUid}-fail.csv!`);
+      }
+   }
 }
 
 main();

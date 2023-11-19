@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "pkg airdrop.js && pkg generate.js"
+  },
   "dependencies": {
     "@solana/spl-token": "^0.3.9",
     "@solana/web3.js": "^1.87.6",
