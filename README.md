@@ -16,6 +16,7 @@ File csv sẽ có format như sau:
 **-mul:** (Tuỳ chọn) gửi hàng loạt, mặc định sẽ gửi đến từng ví theo hàng chờ. giá trị là true hoặc false<br/>
 **-network:** (Tuỳ chọn) mạng của ví mặc định là mainnet-beta<br/>
 **-programId:** (Tuỳ chọn) ID của chương trình<br/>
+**-spl** (Tuỳ chọn) Mint addresss của SPL Token, mặc định là SOL
 
 ```bash
 airdrop -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
