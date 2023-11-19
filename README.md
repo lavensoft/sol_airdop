@@ -9,7 +9,7 @@ File csv sẽ có format như sau:
 
 # AIRDROP:
 ## Args:
-**-secrectKey:** Private key của ví gửi<br/>
+**-secretKey:** Private key của ví gửi<br/>
 **-csv:** Đường dẫn đến file csv<br/>
 **-amount:** (Tuỳ chọn) số lượng SOL gửi đến các ví, khi quy định amount thì chương trình sẽ ưu tiên lấy số lượng ở đây thay vì cột Amount trong file CSV<br/>
 **-note:** (Tuỳ chọn) Nội dung gửi<br/>
@@ -19,7 +19,7 @@ File csv sẽ có format như sau:
 **-spl** (Tuỳ chọn) Mint addresss của SPL Token, mặc định là SOL
 
 ```bash
-airdrop -secrectKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
+airdrop -secretKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
 ```
 
 # GENERATE:

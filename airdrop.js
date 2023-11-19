@@ -20,11 +20,11 @@ const parseArgs = (args) => {
 }
 
 const rawArgs = process.argv;
-const { secrectKey, programId, amount, note, mul, csv, network, spl } = parseArgs(rawArgs);
+const { secretKey, programId, amount, note, mul, csv, network, spl } = parseArgs(rawArgs);
 
 //Validate
-if(!secrectKey) {
-   console.log("[ERROR]: Please spetific -secrectKey");
+if(!secretKey) {
+   console.log("[ERROR]: Please spetific -secretKey");
    process.exit(0);
 }
 
@@ -36,8 +36,11 @@ if(!csv) {
 const { decode } = pkg;
 const connection = new Connection(clusterApiUrl(network || "mainnet-beta")); //!TODO GET FROM ARGS || DEFAULT: mainnet
 
-const secrectDecoded = decode(secrectKey)
+const secrectDecoded = decode(secretKey)
 const fromKeypair = Keypair.fromSecretKey(secrectDecoded);
+const resUid = Date.now();
+const failRes = [];
+const sucRes = [];
 
 const isNumber = (n) => { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
@@ -125,8 +128,20 @@ const airdrop = async (toPubKey, lamports, note="", mul=false) => {
          await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
       }
 
+      //save result
+      sucRes.push({
+         address: toPubKey,
+         amount: lamports || 0,
+         note: note || ""
+      });
       console.log(`${!mul ? "└──" : ""}[SUCCESS]: Airdrop successfully to ${toPubKey}!`);
    }catch(e) {
+      //save result
+      failRes.push({
+         address: toPubKey,
+         amount: lamports || 0,
+         note: note || ""
+      });
       console.log(e.message);
    }
 }
@@ -143,6 +158,7 @@ const main = async () => {
          .on("end", () => res(transactions))
    );
 
+   //Start transaction
    if(mul) {
       let transPromises = transactions.map((trans) => {
          return airdrop(
@@ -163,6 +179,29 @@ const main = async () => {
          );
       }
    }
+
+   //Save result
+   console.log(`[INFO]: Saving result ${resUid}-successs.csv`);
+   const ws = fs.createWriteStream(`${resUid}-successs.csv`);
+   fcsv.write(sucRes, { headers: true })
+      .pipe(ws)
+      .on('finish', () => {
+         console.log(`└──[SUCCESS]: Result saved successfully!`);
+      })
+      .on('error', (err) => {
+         console.log(`└──[ERROR]: Can not save result!`);
+      });
+
+   console.log(`[INFO]: Saving result ${resUid}-fail.csv`);
+   const ws2 = fs.createWriteStream(`${resUid}-fail.csv`);
+   fcsv.write(failRes, { headers: true })
+      .pipe(ws2)
+      .on('finish', () => {
+         console.log(`└──[SUCCESS]: Result saved successfully!`);
+      })
+      .on('error', (err) => {
+         console.log(`└──[ERROR]: Can not save result!`);
+      });
 }
 
 main();
