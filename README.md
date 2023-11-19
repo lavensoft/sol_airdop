@@ -20,7 +20,7 @@ File csv sẽ có format như sau:
 **-rpc** (Tuỳ chọn) Mạng RPC tuỳ chọn<br/>
 
 ```bash
-airdrop -secretKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
+airdrop -secretKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet -spl=MINT_ADDRESS -rpc=https://api.testnet.solana.com
 ```
 
 # GENERATE:
