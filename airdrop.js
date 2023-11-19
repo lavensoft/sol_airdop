@@ -20,7 +20,7 @@ const parseArgs = (args) => {
 }
 
 const rawArgs = process.argv;
-const { secretKey, programId, amount, note, mul, csv, network, spl } = parseArgs(rawArgs);
+const { secretKey, programId, amount, note, mul, csv, network, spl, rpc } = parseArgs(rawArgs);
 
 //Validate
 if(!secretKey) {
@@ -34,7 +34,7 @@ if(!csv) {
 }
 
 const { decode } = pkg;
-const connection = new Connection(clusterApiUrl(network || "mainnet-beta")); //!TODO GET FROM ARGS || DEFAULT: mainnet
+const connection = new Connection(rpc || clusterApiUrl(network || "mainnet-beta")); //!TODO GET FROM ARGS || DEFAULT: mainnet
 
 const secrectDecoded = decode(secretKey)
 const fromKeypair = Keypair.fromSecretKey(secrectDecoded);
@@ -181,8 +181,8 @@ const main = async () => {
    }
 
    //Save result
-   console.log(`[INFO]: Saving result ${resUid}-successs.csv`);
-   const ws = fs.createWriteStream(`${resUid}-successs.csv`);
+   console.log(`[INFO]: Saving result ${resUid}-success.csv`);
+   const ws = fs.createWriteStream(`${resUid}-success.csv`);
    fcsv.write(sucRes, { headers: true })
       .pipe(ws)
       .on('finish', () => {

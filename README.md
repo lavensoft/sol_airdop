@@ -17,6 +17,7 @@ File csv sẽ có format như sau:
 **-network:** (Tuỳ chọn) mạng của ví mặc định là mainnet-beta<br/>
 **-programId:** (Tuỳ chọn) ID của chương trình<br/>
 **-spl** (Tuỳ chọn) Mint addresss của SPL Token, mặc định là SOL
+**-rpc** (Tuỳ chọn) Mạng RPC tuỳ chọn
 
 ```bash
 airdrop -secretKey=SECRECT_KEY -csv=FILE.csv -note="NOTE" -amount=0.1 -mul=true/false -programId=PROGRAM_ID -network=devnet
